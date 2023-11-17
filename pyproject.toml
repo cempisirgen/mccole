@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mccole"
+authors = [
+    {name = "Greg Wilson", email = "gvwilson@third-bit.com"},
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "ark",
+  "beautifulsoup4",
+  "html5validator",
+  "lxml",
+  "pybtex",
+  "pymdown-extensions",
+  "ruff"
+]
+classifiers = ["License :: OSI Approved :: MIT License"]
+dynamic = ["version"]
+
+[tool.setuptools]
+packages = ["mccole"]
+
+[tool.setuptools.package-data]
+mypkg = [
+    "lib/book/*.*",
+    "lib/book/bin/*.*",
+    "lib/book/extensions/*.*",
+    "lib/book/resources/*.*",
+    "lib/book/templates/*.*"
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "mccole.__version__"}
+
+[tool.ruff]
+target-version = "py311"
