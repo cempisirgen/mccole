@@ -157,7 +157,7 @@ def table_def(pargs, kwargs, node):
     slug = kwargs["slug"]
     tbl = kwargs["tbl"]
     caption = util.markdownify(kwargs["caption"], True)
-    header = f'<table id="{slug}">\n<caption>{caption}</caption>'
+    header = f'<table id="{slug}" data-tbl="{tbl}">\n<caption>{caption}</caption>'
 
     util.require_file(node, tbl, "table")
     content = util.markdownify(util.read_file(node, tbl, "table").strip())
@@ -229,17 +229,13 @@ def x_reference(pargs, kwargs, node):
 
 def _split_list(values, width):
     """Split list into (nearly) equal-sized portions."""
-    heights = [len(values) // width] * width
-    total = sum(heights)
-    for i in range(width):
-        if total == len(values):
-            break
-        heights[i] += 1
-        total += 1
+    least = len(values) // width
+    rem = len(values) % width
+    heights = [least + 1 if i < rem else least for i in range(width)]
 
-    result = []
     base = 0
+    result = []
     for h in heights:
-        result.append(values[base : base + h])
+        result.append(values[base:base+h])
         base += h
     return result

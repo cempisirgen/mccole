@@ -7,7 +7,7 @@ BIBER := biber
 PYTHON := python
 
 # Directories.
-ARK_BIN := lib/book/bin
+ARK_BIN := lib/mccole/bin
 SRC_DIR := src
 HTML_DIR := docs
 
@@ -92,6 +92,12 @@ clean:
 .PHONY: sterile
 sterile: clean
 	@rm -rf ${OUT_DIR}
+
+## update-template: get the latest version of the template
+.PHONY: update-template
+update-template:
+	wget https://github.com/gvwilson/mccole/raw/main/mccole.zip
+	unzip mccole.zip
 
 ## --------------------
 
